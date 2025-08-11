@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Swag\BundleManager\Core\Content\Bundle;
+namespace BundleManager\Core\Content\Bundle;
 
 
 use BundleExampleStep2\Core\Content\Bundle\Aggregate\BundleTranslation\BundleTranslationCollection;
+use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
@@ -29,6 +30,10 @@ class BundleEntity extends Entity
      */
     protected $translations;
 
+    /**
+     * @var ProductCollection|null
+     */
+    protected $products;
 
     /**
      * @return string
@@ -86,5 +91,15 @@ class BundleEntity extends Entity
     public function setTranslations(BundleTranslationCollection $translations): void
     {
         $this->translations = $translations;
+    }
+
+    public function getProducts(): ?ProductCollection
+    {
+        return $this->products;
+    }
+
+    public function setProducts(?ProductCollection $products): void
+    {
+        $this->products = $products;
     }
 }

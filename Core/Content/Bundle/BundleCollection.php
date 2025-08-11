@@ -3,7 +3,7 @@
 namespace SwagBundleManager\Core\Content\Bundle;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
-use Swag\BundleManager\Core\Content\Bundle\BundleEntity;
+use BundleManager\Core\Content\Bundle\BundleEntity;
 
 class BundleCollection extends EntityCollection
 {

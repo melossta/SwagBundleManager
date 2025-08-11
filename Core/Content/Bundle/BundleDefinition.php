@@ -15,7 +15,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
-use Swag\BundleManager\Core\Content\Bundle\BundleEntity;
+use BundleManager\Core\Content\Bundle\BundleEntity;
 
 class BundleDefinition extends EntityDefinition
 {
