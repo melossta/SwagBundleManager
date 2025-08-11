@@ -3,6 +3,7 @@
 namespace Swag\BundleManager\Core\Content\Bundle;
 
 
+use BundleExampleStep2\Core\Content\Bundle\Aggregate\BundleTranslation\BundleTranslationCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
@@ -22,6 +23,12 @@ class BundleEntity extends Entity
      * @var float
      */
     protected $discount;
+
+    /**
+     * @var BundleTranslationCollection
+     */
+    protected $translations;
+
 
     /**
      * @return string
@@ -69,5 +76,15 @@ class BundleEntity extends Entity
     public function setDiscount(float $discount): void
     {
         $this->discount = $discount;
+    }
+
+    public function getTranslations(): BundleTranslationCollection
+    {
+        return $this->translations;
+    }
+
+    public function setTranslations(BundleTranslationCollection $translations): void
+    {
+        $this->translations = $translations;
     }
 }
