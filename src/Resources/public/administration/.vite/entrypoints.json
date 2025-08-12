@@ -1,0 +1,23 @@
+{
+  "base": "/bundles/swagbundlemanager/administration/",
+  "entryPoints": {
+    "swag-bundle-manager": {
+      "css": [],
+      "dynamic": [],
+      "js": [
+        "/bundles/swagbundlemanager/administration/assets/swag-bundle-manager-CvicM3Fe.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.1.0",
+    7,
+    1,
+    0
+  ],
+  "viteServer": null
+}

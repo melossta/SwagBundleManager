@@ -1,0 +1,8 @@
+{
+  "swag-bundle": {
+    "general": {
+      "mainMenuItemGeneral": "Bundle Manager",
+      "descriptionTextModule": "Management of product bundle."
+    }
+  }
+}
