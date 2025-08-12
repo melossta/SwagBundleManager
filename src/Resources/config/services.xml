@@ -17,5 +17,13 @@
         <service id="SwagBundleManager\Core\Content\Product\ProductExtension">
             <tag name="shopware.entity.extension"/>
         </service>
+
+
+<!--        Console Commands Service:-->
+        <service id="SwagBundleManager\Command\CreateTestBundleCommand" public="true">
+            <argument type="service" id="swag_bundle.repository" />
+            <tag name="console.command" />
+        </service>
+
     </services>
 </container>

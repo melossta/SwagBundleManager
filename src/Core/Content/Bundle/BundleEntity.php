@@ -3,7 +3,7 @@
 namespace SwagBundleManager\Core\Content\Bundle;
 
 
-use BundleExampleStep2\Core\Content\Bundle\Aggregate\BundleTranslation\BundleTranslationCollection;
+use SwagBundleManager\Core\Content\Bundle\Aggregate\BundleTranslation\BundleTranslationCollection;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;

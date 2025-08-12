@@ -2,8 +2,9 @@
 
 namespace SwagBundleManager\Core\Content\Bundle;
 
-use BundleExampleStep2\Core\Content\Bundle\Aggregate\BundleProduct\BundleProductDefinition;
-use BundleExampleStep2\Core\Content\Bundle\Aggregate\BundleTranslation\BundleTranslationDefinition;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
+use SwagBundleManager\Core\Content\Bundle\Aggregate\BundleProduct\BundleProductDefinition;
+use SwagBundleManager\Core\Content\Bundle\Aggregate\BundleTranslation\BundleTranslationDefinition;
 use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
@@ -35,8 +36,8 @@ class BundleDefinition extends EntityDefinition
     {
         return new FieldCollection([
            (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey()),
-            (new StringField('name', 'name'))->addFlags(new Required()),
-//            new TranslatedField('name'),
+            //(new StringField('name', 'name'))->addFlags(new Required()),
+            new TranslatedField('name'),
             (new StringField('discount_type', 'discountType'))->addFlags(new Required()),
             (new FloatField('discount','discount'))->addFlags(new Required()),
 

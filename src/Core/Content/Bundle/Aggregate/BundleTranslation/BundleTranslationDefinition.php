@@ -2,7 +2,6 @@
 
 namespace SwagBundleManager\Core\Content\Bundle\Aggregate\BundleTranslation;
 
-use BundleExampleStep2\Core\Content\Bundle\Aggregate\BundleTranslation\BundleTranslationCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
