@@ -1,10 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace SwagBundleManager\Bundle\Content\Bundle\Aggregate\BundleProduct;
+namespace SwagBundleManager\Core\Content\Bundle\Aggregate\BundleProduct;
 
 
 use Shopware\Core\Content\Product\ProductDefinition;
-use Shopware\Core\Framework\DataAbstractionLayer\Attribute\ManyToOne;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\CreatedAtField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;

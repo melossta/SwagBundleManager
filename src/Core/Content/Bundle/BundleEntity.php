@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace BundleManager\Core\Content\Bundle;
+namespace SwagBundleManager\Core\Content\Bundle;
 
 
 use BundleExampleStep2\Core\Content\Bundle\Aggregate\BundleTranslation\BundleTranslationCollection;

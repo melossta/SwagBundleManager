@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
-namespace SwagBundleManager\Core\Content\Bundle\Aggregate;
+namespace SwagBundleManager\Core\Content\Bundle\Aggregate\BundleTranslation;
 use Shopware\Core\Framework\DataAbstractionLayer\TranslationEntity;
-use BundleManager\Core\Content\Bundle\BundleEntity;
+use SwagBundleManager\Core\Content\Bundle\BundleEntity;
 
 class BundleTranslationEntity extends TranslationEntity
 {

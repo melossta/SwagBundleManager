@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SwagBundleManager\Core\Content\Bundle\Aggregate;
+namespace SwagBundleManager\Core\Content\Bundle\Aggregate\BundleTranslation;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 

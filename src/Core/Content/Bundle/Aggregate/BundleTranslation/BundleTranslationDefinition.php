@@ -1,14 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace BundleManager\Core\Content\Bundle\Aggregate;
+namespace SwagBundleManager\Core\Content\Bundle\Aggregate\BundleTranslation;
 
 use BundleExampleStep2\Core\Content\Bundle\Aggregate\BundleTranslation\BundleTranslationCollection;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
-use SwagBundleManager\Core\Content\Bundle\Aggregate\BundleTranslationEntity;
 use SwagBundleManager\Core\Content\Bundle\BundleDefinition;
 
 class BundleTranslationDefinition extends EntityTranslationDefinition
