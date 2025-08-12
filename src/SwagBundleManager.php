@@ -2,6 +2,7 @@
 
 namespace SwagBundleManager;
 
+use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
 use Shopware\Core\Framework\Plugin\Context\DeactivateContext;
@@ -24,7 +25,12 @@ class SwagBundleManager extends Plugin
             return;
         }
 
-        // Remove or deactivate the data created by the plugin
+        $connection =$this->container->get(Connection::class);
+
+        $connection->executeQuery('DROP TABLE IF EXISTS `swag_bundle_product`');
+        $connection->executeQuery('DROP TABLE IF EXISTS `swag_bundle_translation`');
+        $connection->executeQuery('DROP TABLE IF EXISTS `swag_bundle`');
+        $connection->executeQuery('ALTER TABLE `product` DROP COLUMN `bundles`');
     }
 
     public function activate(ActivateContext $activateContext): void
