@@ -3,6 +3,12 @@
     "general": {
       "mainMenuItemGeneral": "Bundle Manager",
       "descriptionTextModule": "Verwaltung von Produkt-Bundles."
+    },
+    "list": {
+      "addButtonText": "Bündel hinzufügen",
+      "columnName": "Name",
+      "columnDiscountType": "Rabattart",
+      "columnDiscount": "Rabatt"
     }
   }
 }
