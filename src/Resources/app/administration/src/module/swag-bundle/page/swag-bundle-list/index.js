@@ -40,7 +40,7 @@ Component.register('swag-bundle-list',{
                 {
                     property:'name',
                     label:this.$tc('swag-bundle.list.columnName'),
-                    // routerLink:'swag.bundle.detail', //issue stays that the swag.bundle.detail is still not set up and if i use it the name is not showing so i commented it out
+                    routerLink:'swag.bundle.detail',
                     inlineEdit:'string',
                     allowResize:true,
                     primary:true

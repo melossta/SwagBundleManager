@@ -32,7 +32,11 @@ Shopware.Module.register('swag-bundle', {
 });
 */
 // import './page/swag-bundle-index';
+
 import './page/swag-bundle-list';
+import './page/swag-bundle-detail'
+import './page/swag-bundle-create'
+
 import deDE from './snippet/de-DE.json';
 import enGB from './snippet/en-GB.json';
 const {Module} = Shopware;
@@ -54,6 +58,20 @@ Shopware.Module.register('swag-bundle',
             index: {
                 component: 'swag-bundle-list',
                 path: 'index'
+            },
+            detail:{
+                component:'swag-bundle-detail',
+                path:'detail/:id',
+                meta:{
+                    parentPath:'swag.bundle.index'
+                }
+            },
+            create:{
+                component:'swag-bundle-create',
+                path:'create',
+                meta:{
+                    parentPath:'swag.bundle.index'
+                }
             }
         },
         navigation:[{

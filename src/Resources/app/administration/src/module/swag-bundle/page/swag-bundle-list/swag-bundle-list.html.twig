@@ -3,9 +3,9 @@
     <sw-page class="swag-bundle-list">
         {% block swag_bundle_list_smart_bar_actions %}
             <template #smart-bar-actions>
-{#                <sw-button variant="primary" :routerLink="{name: 'swag.bundle.create'}">#}
-{#                        {{ $tc('swag-bundle.list.addButtonText') }}#}
-{#                </sw-button>#}
+                <sw-button variant="primary" :routerLink="{name: 'swag.bundle.create'}">
+                        {{ $tc('swag-bundle.list.addButtonText') }}
+                </sw-button>
             </template>
         {% endblock %}
         <template #content>
@@ -15,7 +15,7 @@
                     :items="bundles"
                     :repository="repository"
                     :showSelection="false"
-                    :columns="columns">
+                    :columns="columns"
                     :detailRoute="'swag.bundle.detail'">
             </sw-entity-listing>
             {% endblock %}

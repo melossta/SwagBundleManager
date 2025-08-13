@@ -1,0 +1,41 @@
+{% block swag_bundle_detail %}
+    <sw-page class="swag-bundle-detail">
+        <template #smart-bar-actions>
+            <sw-button :routerLink="{name:'swag.bundle.index'}">
+                {{ $tc('swag-bundle.detail.cancelButtonText') }}
+            </sw-button>
+
+            <sw-button-process
+                :isLoading="isLoading"
+                :processSuccess="processSuccess"
+                variant="primary"
+                @process-finish="saveFinish"
+                @click="onClickSave"
+            >
+                {{$tc('swag-bundle.detail.saveButtonText') }}
+            </sw-button-process>
+        </template>
+        <template #content>
+            <sw-card-view>
+                <sw-card v-if="bundle" :isLoading="isLoading">
+                    <sw-field v-model="bundle.name" :label="$tc('swag-bundle.detail.nameLabel')" ></sw-field>
+                    <sw-number-field v-model="bundle.discount" :label="$tc('swag-bundle.detail.discountLabel')" ></sw-number-field>
+
+                    <sw-radio-field
+                        :label="$tc('swag-bundle.detail.discountTypeLabel')"
+                        v-model="bundle.discountType"
+                        :options="options"
+                    ></sw-radio-field>
+
+                    <sw-entity-many-to-many-select
+                        v-if="bundle.products"
+                        v-model="bundle.products"
+                        :localMode="bundle.isNew()"
+                        :label="$tc('swag-bundle.detail.assignProductsLabel')"
+
+                    ></sw-entity-many-to-many-select>
+                </sw-card>
+            </sw-card-view>
+        </template>
+    </sw-page>
+{% endblock %}
