@@ -21,7 +21,12 @@
       "saveButtonText": "Save",
       "errorTitle": "Error saving the bundle",
       "absoluteText": "Absolute",
-      "percentageText": "Percentage"
+      "percentageText": "Percentage",
+      "addSelected": "Add Selected",
+      "clearSelected": "Clear Selected",
+      "searchPlaceholder": "Search for products"
+
+
     }
   }
 }
