@@ -5,19 +5,20 @@
                 {{ $tc('swag-bundle.detail.cancelButtonText') }}
             </sw-button>
             <sw-button-process
-            :isLoading="isLoading"
-            :processSuccess="processSuccess"
-            variant="primary"
-            @process-finish="saveFinish"
-            @click="onClickSave"
+                    :isLoading="isLoading"
+                    :processSuccess="processSuccess"
+                    variant="primary"
+                    @process-finish="saveFinish"
+                    @click="onClickSave"
             >
                 {{ $tc('swag-bundle.detail.saveButtonText') }}
             </sw-button-process>
         </template>
+
         <template #content>
             <sw-card-view>
                 <sw-card v-if="bundle" :isLoading="isLoading">
-                    <sw-text-field v-model="bundle.name" :is-loading="isLoading" :label="$tc('swag-bundle.detail.nameLabel')"></sw-text-field>
+                    <sw-text-field v-model="bundle.name" :label="$tc('swag-bundle.detail.nameLabel')"></sw-text-field>
                     <sw-number-field v-model="bundle.discount" :label="$tc('swag-bundle.detail.discountLabel')"></sw-number-field>
 
                     <sw-radio-field
@@ -26,18 +27,35 @@
                             :options="options"
                     ></sw-radio-field>
 
-                    <label>{{ $tc('swag-bundle.detail.assignProductsLabel') }}</label>
-                    <select v-model="selectedProductIds" multiple @change="onProductChange">
-                        <option v-for="product in products" :key="product.id" :value="product.id">
-                            {{ product.name }}
-                        </option>
-                    </select>
+                    <div class="assign-products">
+                        <label>{{ $tc('swag-bundle.detail.assignProductsLabel') }}</label>
 
+                        <!-- Dropdown + Add button -->
+                        <div style="display:flex; gap: 10px; margin-bottom: 15px;">
+                            <select v-model="selectedProductId">
+                                <option disabled value="">{{ $tc('swag-bundle.detail.selectProductPlaceholder') }}</option>
+                                <option v-for="product in products" :key="product.id" :value="product.id">
+                                    {{ product.name }}
+                                </option>
+                            </select>
+                            <sw-button variant="primary" @click="addProductToAssigned">
+                                {{ $tc('swag-bundle.detail.addProductButton') }}
+                            </sw-button>
+                        </div>
 
+                        <!-- Assigned products list -->
+                        <ul>
+                            <li v-for="product in assignedProducts" :key="product.id" style="margin-bottom: 5px;">
+                                {{ product.name }}
+                                <sw-button size="small" variant="danger" @click="removeProductFromAssigned(product.id)">
+                                    {{ $tc('swag-bundle.detail.removeButtonText') }}
+                                </sw-button>
+                            </li>
+                        </ul>
 
+                    </div>
                 </sw-card>
             </sw-card-view>
-
         </template>
     </sw-page>
 {% endblock %}

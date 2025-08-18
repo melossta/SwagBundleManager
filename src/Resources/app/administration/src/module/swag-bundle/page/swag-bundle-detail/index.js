@@ -1,43 +1,39 @@
 import template from './swag-bundle-detail.html.twig';
 
-const {Component,Mixin}=Shopware;
+const { Component, Mixin } = Shopware;
 
 Component.register('swag-bundle-detail', {
     template,
-    inject:[
+    inject: [
         'repositoryFactory'
     ],
 
-    mixins:[
+    mixins: [
         Mixin.getByName('notification')
     ],
 
-    metaInfo(){
+    data() {
         return {
-            title: this.getByName('notification'),
+            bundle: null,
+            isLoading: false,
+            processSuccess: false,
+            repository: null,
+            products: [],
+            assignedProducts: [],
+            selectedProductId: null
         };
     },
 
-    data(){
-        return {
-            bundle:null,
-            isLoading:false,
-            processSuccess:false,
-            repository:null,
-            products: [], // holds all products to choose from
-            selectedProductIds: [] // holds selected product IDs
-        }
-    },
-    computed:{
-        options(){
-            return[
-                {value:'absolute',name:this.$tc('swag-bundle.detail.absoluteText')},
-                {value: 'percent',name:this.$tc('swag-bundle.detail.absolutePercent')}
+    computed: {
+        options() {
+            return [
+                { value: 'absolute', name: this.$tc('swag-bundle.detail.absoluteText') },
+                { value: 'percent', name: this.$tc('swag-bundle.detail.absolutePercent') }
             ];
         }
     },
 
-    created(){
+    created() {
         this.repository = this.repositoryFactory.create('swag_bundle');
         this.productRepository = this.repositoryFactory.create('product');
 
@@ -45,19 +41,9 @@ Component.register('swag-bundle-detail', {
         this.createdComponent();
     },
 
-    methods:{
+    methods: {
         createdComponent() {
             this.getBundle();
-        },
-        getBundle() {
-            this.repository.get(this.$route.params.id, Shopware.Context.api).then((entity) => {
-                this.bundle = entity;
-
-                // If bundle already has products, store their IDs
-                if (this.bundle.products) {
-                    this.selectedProductIds = this.bundle.products.map(p => p.id);
-                }
-            });
         },
         loadProducts() {
             const Criteria = Shopware.Data.Criteria;
@@ -68,46 +54,61 @@ Component.register('swag-bundle-detail', {
                 this.products = result;
             });
         },
+
         onClickSave() {
             this.isLoading = true;
 
-            // Attach the selected product IDs to the bundle's products association
-            this.bundle.products = this.selectedProductIds.map(productId => {
-                return {
-                    productId, // key for the mapping table
-                    id: productId // Shopware still needs the ID for reference
-                };
-            });
+            // Map assigned products to backend format
+            this.bundle.products = this.assignedProducts.map(p => ({ id: p.id }));
 
-            console.log('Final bundle payload before save:', JSON.parse(JSON.stringify(this.bundle)));
-
-            this.repository.save(this.bundle, Shopware.Context.api)
-                .then(() => {
-                    this.getBundle();
-                    this.isLoading = false;
-                    this.processSuccess = true;
-                })
-                .catch((exception) => {
-                    this.isLoading = false;
-                    this.createNotificationError({
-                        title: this.$tc('swag-bundle.detail.saveError'),
-                        message: exception
-                    });
+            this.repository.save(this.bundle, Shopware.Context.api).then(() => {
+                this.getBundle();
+                this.isLoading = false;
+                this.processSuccess = true;
+            }).catch((exception) => {
+                this.isLoading = false;
+                this.createNotificationError({
+                    title: this.$tc('swag-bundle.detail.saveError'),
+                    message: exception
                 });
+            });
+        },
+        getBundle() {
+            const Criteria = Shopware.Data.Criteria;
+            const criteria = new Criteria();
+            criteria.addAssociation('products');
+
+            this.repository.get(this.$route.params.id, Shopware.Context.api, criteria).then((entity) => {
+                this.bundle = entity;
+
+                if (this.bundle.products && this.bundle.products.length > 0) {
+                    this.assignedProducts = this.bundle.products;
+                    console.log('Assigned products loaded:', this.assignedProducts);
+                } else {
+                    console.log('No products assigned to this bundle.');
+                    this.assignedProducts = [];
+                }
+            });
         }
 ,
-        onProductChange() {
-            console.log('Selected product IDs:', this.selectedProductIds);
+        addProductToAssigned() {
+            if (!this.selectedProductId) return;
 
-            // Optional: log product names for debugging
-            const selectedNames = this.products
-                .filter(p => this.selectedProductIds.includes(p.id))
-                .map(p => p.name);
-            console.log('Products added to bundle:', selectedNames);
+            const product = this.products.find(p => p.id === this.selectedProductId);
+            if (product && !this.assignedProducts.some(ap => ap.id === product.id)) {
+                this.assignedProducts.push(product);
+                console.log('Added product:', product.name);
+            }
+
+            // reset dropdown
+            this.selectedProductId = null;
+        },
+        removeProductFromAssigned(productId) {
+            this.assignedProducts = this.assignedProducts.filter(p => p.id !== productId);
+            console.log('Removed product:', productId);
         },
         saveFinish() {
             this.processSuccess = false;
         }
     }
-
-})
+});
