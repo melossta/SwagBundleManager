@@ -1,3 +1,4 @@
+
 {% block swag_bundle_detail %}
     <sw-page class="swag-bundle-detail">
         <template #smart-bar-actions>
@@ -21,11 +22,20 @@
                     <sw-text-field v-model="bundle.name" :label="$tc('swag-bundle.detail.nameLabel')"></sw-text-field>
                     <sw-number-field v-model="bundle.discount" :label="$tc('swag-bundle.detail.discountLabel')"></sw-number-field>
 
-                    <sw-radio-field
-                            :label="$tc('swag-bundle.detail.discountTypeLabel')"
-                            v-model="bundle.discountType"
-                            :options="options"
-                    ></sw-radio-field>
+                    <div>
+                        <label v-for="option in options" :key="option.value">
+                            <input
+                                    type="radio"
+                                    :value="option.value"
+                                    v-model="discountTypeLocal"
+                            />
+                            {{ option.name }}
+                        </label>
+                    </div>
+
+
+
+
 
                     <div class="assign-products">
                         <label>{{ $tc('swag-bundle.detail.assignProductsLabel') }}</label>
@@ -33,13 +43,13 @@
                         <!-- Dropdown + Add button -->
                         <div style="display:flex; gap: 10px; margin-bottom: 15px;">
                             <select v-model="selectedProductId">
-                                <option disabled value="">{{ $tc('swag-bundle.detail.selectProductPlaceholder') }}</option>
+                                <option disabled value="">{{ $tc('swag-bundle.detail.searchPlaceholder') }}</option>
                                 <option v-for="product in products" :key="product.id" :value="product.id">
                                     {{ product.name }}
                                 </option>
                             </select>
                             <sw-button variant="primary" @click="addProductToAssigned">
-                                {{ $tc('swag-bundle.detail.addProductButton') }}
+                                {{ $tc('swag-bundle.detail.addSelected') }}
                             </sw-button>
                         </div>
 
@@ -48,7 +58,7 @@
                             <li v-for="product in assignedProducts" :key="product.id" style="margin-bottom: 5px;">
                                 {{ product.name }}
                                 <sw-button size="small" variant="danger" @click="removeProductFromAssigned(product.id)">
-                                    {{ $tc('swag-bundle.detail.removeButtonText') }}
+                                    {{ $tc('swag-bundle.detail.clearSelected') }}
                                 </sw-button>
                             </li>
                         </ul>
@@ -59,3 +69,4 @@
         </template>
     </sw-page>
 {% endblock %}
+

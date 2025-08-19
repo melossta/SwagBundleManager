@@ -14,24 +14,24 @@ Component.register('swag-bundle-detail', {
 
     data() {
         return {
+            discountTypeLocal: 'absolute', // default selection
             bundle: null,
+            assignedProducts: [],
+            selectedProductId: null,
+            products: [],
             isLoading: false,
             processSuccess: false,
-            repository: null,
-            products: [],
-            assignedProducts: [],
-            selectedProductId: null
+            options: [
+                { value: 'absolute', name: 'Absolute' },
+                { value: 'percent', name: 'Percent' }
+            ]
         };
     },
 
     computed: {
-        options() {
-            return [
-                { value: 'absolute', name: this.$tc('swag-bundle.detail.absoluteText') },
-                { value: 'percent', name: this.$tc('swag-bundle.detail.absolutePercent') }
-            ];
-        }
+
     },
+
 
     created() {
         this.repository = this.repositoryFactory.create('swag_bundle');
@@ -43,7 +43,13 @@ Component.register('swag-bundle-detail', {
 
     methods: {
         createdComponent() {
-            this.getBundle();
+            if (this.$route.params.id) {
+                this.getBundle();
+            } else {
+                // ✅ New bundle creation
+                this.bundle = this.repository.create(Shopware.Context.api);
+                this.discountTypeLocal = 'absolute'; // or leave null until user selects
+            }
         },
         loadProducts() {
             const Criteria = Shopware.Data.Criteria;
@@ -55,24 +61,6 @@ Component.register('swag-bundle-detail', {
             });
         },
 
-        onClickSave() {
-            this.isLoading = true;
-
-            // Map assigned products to backend format
-            this.bundle.products = this.assignedProducts.map(p => ({ id: p.id }));
-
-            this.repository.save(this.bundle, Shopware.Context.api).then(() => {
-                this.getBundle();
-                this.isLoading = false;
-                this.processSuccess = true;
-            }).catch((exception) => {
-                this.isLoading = false;
-                this.createNotificationError({
-                    title: this.$tc('swag-bundle.detail.saveError'),
-                    message: exception
-                });
-            });
-        },
         getBundle() {
             const Criteria = Shopware.Data.Criteria;
             const criteria = new Criteria();
@@ -81,16 +69,42 @@ Component.register('swag-bundle-detail', {
             this.repository.get(this.$route.params.id, Shopware.Context.api, criteria).then((entity) => {
                 this.bundle = entity;
 
+                // 👇 keep local in sync with DB (fallback to default)
+                this.discountTypeLocal = this.bundle.discountType || 'absolute';
+
                 if (this.bundle.products && this.bundle.products.length > 0) {
                     this.assignedProducts = this.bundle.products;
-                    console.log('Assigned products loaded:', this.assignedProducts);
                 } else {
-                    console.log('No products assigned to this bundle.');
                     this.assignedProducts = [];
                 }
             });
+        },
+
+        onClickSave() {
+            this.isLoading = true;
+
+            // 👇 push local value back onto the entity before saving
+            this.bundle.discountType = this.discountTypeLocal;
+
+            // map assigned products (unchanged)
+            this.bundle.products = this.assignedProducts.map(p => ({ id: p.id }));
+
+            this.repository.save(this.bundle, Shopware.Context.api)
+                .then(() => {
+                    this.getBundle();
+                    this.isLoading = false;
+                    this.processSuccess = true;
+                })
+                .catch((exception) => {
+                    this.isLoading = false;
+                    this.createNotificationError({
+                        title: this.$tc('swag-bundle.detail.saveError'),
+                        message: exception
+                    });
+                });
         }
-,
+
+        ,
         addProductToAssigned() {
             if (!this.selectedProductId) return;
 

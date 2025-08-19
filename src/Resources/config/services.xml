@@ -25,5 +25,10 @@
             <tag name="console.command" />
         </service>
 
+<!--        Subscriber Service:-->
+        <service id="SwagBundleManager\Storefront\Page\Product\Subscriber\ProductPageCriteriaSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
     </services>
 </container>
