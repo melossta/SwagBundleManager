@@ -1,0 +1,21 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-product-name.html.twig' %}
+
+{% block element_product_name %}
+    {% if page.product.extension('bundles').elements|length > 0 %}
+
+        <div class="badge"
+             style="
+                 background-color: #fd4a4a;
+                 display: block;
+                 width: fit-content;
+                 margin-right: 5px;
+
+                 padding:2px 15px 2px 15px;
+                 font-size: 18px;
+             ">
+            {{ 'swag-bundle.detail.bundleBadge'|trans }}
+        </div>
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}

@@ -1,9 +1,0 @@
-{% sw_extends '@Storefront/storefront/page/content/product-detail.html.twig' %}
-
-{% block page_content_blocks %}
-    {% if page.product.extension('bundles').elements|length > 0 %}
-        {{ 'swag-bundle.detail.bundleBadge'|trans }}
-    {% endif %}
-
-    {{ parent() }}
-{% endblock %}
