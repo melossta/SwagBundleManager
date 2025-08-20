@@ -1,0 +1,30 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-product-description-reviews.html.twig' %}
+
+{% block element_product_description_reviews_tabs_navigation_description %}
+    {{ parent() }}
+
+    {% if page.product.extension('bundles').elements|length > 0 %}
+        <li class="nav-item">
+            <a class="nav-link product-detail-tab-navigation-link bundle-tab"
+               id="bundle-tab-{{ element.data.product.id }}"
+               data-bs-toggle="tab"
+               data-off-canvas-tabs="true"
+               href="#bundle-tab-{{ element.data.product.id }}-pane"
+               role="tab"
+               aria-controls="bundle-tab-{{ element.data.product.id }}-pane"
+               aria-selected="false">
+                {{ 'swag-bundle.detail.tabText'|trans }}
+            </a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block element_product_description_reviews_tabs_content_description %}
+    {{ parent() }}
+    <div class="tab-pane fade"
+         id="bundle-tab-{{ element.data.product.id }}-pane"
+         role="tabpanel"
+         aria-labelledby="bundle-tab-{{ element.data.product.id }}">
+        <p>This is a Bundle test tab content!</p>
+    </div>
+{% endblock %}
