@@ -3,7 +3,7 @@
 {% block element_product_description_reviews_tabs_navigation_description %}
     {{ parent() }}
 
-    {% if page.product.extension('bundles').elements|length > 0 %}
+    {% if page.product.extension('bundles') and page.product.extension('bundles').elements|length > 0 %}
         <li class="nav-item">
             <a class="nav-link product-detail-tab-navigation-link bundle-tab"
                id="bundle-tab-{{ element.data.product.id }}"
@@ -21,10 +21,9 @@
 
 {% block element_product_description_reviews_tabs_content_description %}
     {{ parent() }}
-    <div class="tab-pane fade"
-         id="bundle-tab-{{ element.data.product.id }}-pane"
-         role="tabpanel"
-         aria-labelledby="bundle-tab-{{ element.data.product.id }}">
-        <p>This is a Bundle test tab content!</p>
-    </div>
+
+    {% if page.product.extension('bundles') and page.product.extension('bundles').elements|length > 0 %}
+        {% sw_include '@SwagBundleManager/storefront/page/product-detail/bundle-slider.html.twig'
+            with { 'bundles': page.product.extension('bundles').elements, 'product': page.product } %}
+    {% endif %}
 {% endblock %}
