@@ -5,40 +5,39 @@
 
     <div class="container bundle-container">
         {% for bundle in bundles %}
-        <h2>{{ bundle.name }}</h2>
+            <h2>{{ bundle.name }}</h2>
 
 
-        <div class="row">
-            {% for product in bundle.products.elements %}
+            <div class="row">
+                {% for product in bundle.products.elements %}
 
-                <div class="col-md-4">
-                    {% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with { 'product': product } %}
-                </div>
-            {% endfor %}
-        </div>
-        <div class="row justify-content-md-center">
-            <form action="{{ path('frontend.checkout.line-item.add') }}"
-                  method="post"
-                  class="buy-widget js-add-to-cart"
-                  data-form-csrf-handler="true"
-                  data-add-to-cart="true">
+                    <div class="col-md-4">
+                        {% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with { 'product': product } %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row justify-content-md-center">
+                <form action="{{ path('frontend.checkout.line-item.add') }}"
+                      method="post"
+                      class="buy-widget js-add-to-cart"
+                      data-form-csrf-handler="true"
+                      data-add-to-cart="true">
 
-                <div class="form-row buy-widget-container">
-                    <button class="btn btn-primary btn-block buy-widget-submit">
-                        {{ 'swag-bundle.detail.buyButtonText'|trans({'%bundleDiscount%': bundle.discount}) }}
-                    </button>
+                    <div class="form-row buy-widget-container">
+                        <button class="btn btn-primary btn-block buy-widget-submit">
+                            {{ 'swag-bundle.detail.buyButtonText'|trans({'%bundleDiscount%': bundle.discount}) }}
+                        </button>
 
-                    <input type="hidden" name="lineItems[{{ bundle.id }}][id]" value="{{ bundle.id }}">
-                    <input type="hidden" name="lineItems[{{ bundle.id }}][type]" value="swagbundle">
-                    <input type="hidden" name="lineItems[{{ bundle.id }}][quantity]" value="1">
-                    <input type="hidden" name="lineItems[{{ bundle.id }}][referenceId]" value="{{ bundle.id }}">
-                    <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
+                        <input type="hidden" name="lineItems[{{ bundle.id }}][type]" value="swagbundle">
+                        <input type="hidden" name="lineItems[{{ bundle.id }}][referencedId]" value="{{ bundle.id }}">
+                        <input type="hidden" name="lineItems[{{ bundle.id }}][quantity]" value="1">
+                        <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
 
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('frontend.checkout.line-item.add') }}">
-                </div>
-            </form>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('frontend.checkout.line-item.add') }}">
+                    </div>
+                </form>
 
-        </div>
+            </div>
 
         {% endfor %}
 

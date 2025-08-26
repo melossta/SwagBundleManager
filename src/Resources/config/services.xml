@@ -30,5 +30,22 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+<!--        Checkout services-->
+        <service id="SwagBundleManager\Core\Checkout\Bundle\Cart\BundleCartProcessor">
+            <argument type="service" id="swag_bundle.repository"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\PercentagePriceCalculator"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\AbsolutePriceCalculator"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\LineItemFactoryHandler\ProductLineItemFactory"/>
+
+            <tag name="shopware.cart.processor" priority="6000"/>
+            <tag name="shopware.cart.collector" priority="6000"/>
+
+        </service>
+        <service id="SwagBundleManager\Core\Checkout\Bundle\Cart\BundleLineItemFactory">
+            <tag name="shopware.cart.line_item.factory"/>
+        </service>
+
+
     </services>
 </container>
